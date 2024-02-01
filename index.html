@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snow Falling Effect with Large Text</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .snowflake {
+    position: absolute;
+    top: -10px; /* Start off-screen */
+    color: #ADD8E6;
+    user-select: none;
+  }
+
+  .text {
+    position: absolute;
+    font-size: 13vw; /* Set font size to 10% of the viewport width */
+    color: #000;
+    font-family: 'Noto Sans Korean';
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100vh); }
+  }
+</style>
+</head>
+<body>
+<div class="text">현구의 은밀한 비밀</div>
+<script>
+  // Create a snowflake element
+  function createSnowflake() {
+    const snowflake = document.createElement('div');
+    snowflake.textContent = '❄';
+    snowflake.style.cssText = `
+      position: absolute;
+      top: -${Math.random() * 20 + 10}px;
+      left: ${Math.random() * 100}%;
+      font-size: ${Math.random() * 24 + 10}px;
+      opacity: ${Math.random()};
+      color: rgba(0, 157, 255, ${Math.random()}); /* Blue to white color */
+      animation: fall ${Math.random() * 3 + 2}s linear 1 forwards;
+    `;
+    document.body.appendChild(snowflake);
+
+    // Remove the snowflake after animation
+    snowflake.addEventListener('animationend', function() {
+      snowflake.remove();
+    });
+  }
+
+  // Create a new snowflake every 300ms
+  setInterval(createSnowflake, 300);
+</script>
+</body>
+</html>
